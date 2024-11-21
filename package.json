@@ -9,6 +9,7 @@
     "serve": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  
   "dependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
     "asynckit": "^0.4.0",
