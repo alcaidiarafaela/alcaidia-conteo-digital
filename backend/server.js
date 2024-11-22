@@ -102,6 +102,7 @@ app.delete('/internos/:id', async (req, res) => {
 });
 
 
+
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
