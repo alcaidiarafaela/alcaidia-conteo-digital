@@ -2,27 +2,34 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const { Pool } = require('pg');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-app.use('/uploads', express.static('uploads'));
+// Asegurarte de que el directorio 'uploads/' exista
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
 // Configurar Multer para manejar la carga de archivos
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, uploadDir);  // Usar la ruta correcta para la carpeta de subida
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
+    cb(null, Date.now() + '-' + file.originalname);  // Nombre único para cada archivo
   },
 });
 const upload = multer({ storage });
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));  // Sirve los archivos estáticos en /uploads
 
 // Configurar la conexión a la base de datos
 const pool = new Pool({
@@ -101,9 +108,8 @@ app.delete('/internos/:id', async (req, res) => {
   }
 });
 
-//https://alcaidia-conteo-digital-1.onrender.com/
-
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
