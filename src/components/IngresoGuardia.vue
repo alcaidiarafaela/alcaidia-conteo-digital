@@ -26,16 +26,37 @@
       return {
         usuario: '',
         contrasena: '',
+        //cambiar usuario y contraseña del administrador
         users: {
           admin: {
             email: 'beto@admin',
-            password: '1013',
+            password: 'NEri2023',
             backup: [],
           },
           testUser: {
             email: 'admin@admin',
             password: 'admin',
           },
+          //farias
+          guardiaUno: {
+            email: 'guardia1@amdin',
+            password: '1234',
+          },
+          //gorosito
+          guardiaDos: {
+            email: 'guardia2@admin',
+            password: '1234',
+          },
+          //pacheco
+          guardiaTres: {
+            email: 'guardia3@admin',
+            password: '1234',
+          },
+          //stefi
+          expediente: {
+            email: 'expediente@admin',
+            password: '388960',
+          }
         },
         regularUsers: [
           { email: 'user1@example.com', password: 'password1' },
