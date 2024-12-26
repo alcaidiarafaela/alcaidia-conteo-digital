@@ -27,7 +27,21 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'https://alcaidiarafaela.github.io/SistemaConteoDigital/', // Aquí debes poner la URL de tu sitio público
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
+  preflightContinue: false,
+  optionsSuccessStatus: 200,
+  credentials: true, // Esto es necesario si también necesitas permitir cookies
+  // Añadimos el encabezado necesario para permitir solicitudes a redes privadas
+  onHeaders: (headers) => {
+    headers['Access-Control-Allow-Private-Network'] = 'true';
+  }
+};
+
+// Usar CORS con las opciones configuradas
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));  // Sirve los archivos estáticos en /uploads
 
